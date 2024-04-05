@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.complect{
+    padding: 8px 12px; 
+    border-left: 2px solid #7db4d280;
+    word-wrap: break-word;
+    white-space: nowrap;
+}
+html,
+body,
+header,
+.view {
+  height: 100%;
+}
+
+@media (max-width: 740px) {
+  html,
+  body,
+  header,
+  .view {
+    height: 1500px;
+  }
+}
+@media (min-width: 800px) and (max-width: 850px) {
+  html,
+  body,
+  header,
+  .view {
+    height: 1500px;
+  }
+}
+
+.top-nav-collapse {
+  background-color: #7db4d280 !important;
+}
+
+.navbar:not(.top-nav-collapse) {
+  background: transparent !important;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: rgba(255,255,255,1);
+  font-size: 1.1rem;
+}
+
+@media (max-width: 1500px) {
+  .navbar:not(.top-nav-collapse) {
+    background: #7DB4D2 !important;
+  }
+}
+
+.card {
+  background-color: rgba(255, 255, 255, 1);
+  max-width: 40rem;
+  margin: auto;
+}
+.card-text {
+  
+  font-size: 1.1rem;
+}
+
+@media (max-width: 850px) {
+  .card {
+    width: auto;
+  }
+}
+
+.md-form label {
+  color: #ffffff;
+}
+.row {
+  margin-left: 0.3rem;
+}
+
+h6 {
+  line-height: 2.5;
+}
+.btn  {
+  color:#ffffff;
+  background-color:rgba(125,180,210) ;
+}
+.collapse {
+  visibility: visible;
+}
+
+#roles {
+	background-color:rgba(125,180,210,0.3) ;
+	color:#ffffff;
+	border-bottom: 1px solid white; 
+}
+h1 {
+    font-size: 2.5em;
+	color: #ffffff;
+}
+
+h2 {
+    font-size: 2.0em;
+	color: #ffffff;
+}
+
+p {
+    font-size: 1.1rem;
+    color: #040404;
+}
+input.nav-item {
+  margin: 0;
+  padding: 0;
+  border: none;
+  color: white;
+  background-color: transparent;
+  text-decoration: none;
+}
