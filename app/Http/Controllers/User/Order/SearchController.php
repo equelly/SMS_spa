@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 class SearchController extends BaseController
 {
     public function __invoke(){
-
+        
       
         
         if(isset($_GET['action']) && $_GET['action'] == 'search' || isset($_GET['page']) ){
@@ -79,7 +79,10 @@ class SearchController extends BaseController
           $users = User::all();
           $categories = Category::all();
           $mashines = Mashine::all();
-      
+          $seek_data['users'] = $users;
+          $seek_data['categories'] = $categories;
+          $seek_data['mashines'] = $mashines;
+      return $seek_data;
             return view('order.search', compact('categories', 'mashines', 'users'));
        
     }

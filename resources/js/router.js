@@ -25,6 +25,10 @@ const router = createRouter({
         path: '/api/create', component: ()=>import('./components/Order/Create.vue'),
         name:'order.create'
         },
+        {
+        path: '/api/search', component: ()=>import('./components/Order/Search.vue'),
+        name:'order.search'
+        },
     ]
 
 

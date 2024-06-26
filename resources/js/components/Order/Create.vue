@@ -93,8 +93,8 @@ import router from '../../router';
                 axios.get('/api/create')
                 .then(res=>{
                 this.mashines = res.data;
-                //let hide = document.getElementById('navbarSupportedContent-7');
-                //hide.className == 'navbar-collapse collapse show' ? hide.setAttribute('class', 'navbar-collapse collapse'):hide.setAttribute('class', 'navbar-collapse collapse show')
+                let hide = document.getElementById('navbarSupportedContent-7');
+                hide.className == 'navbar-collapse collapse show' ? hide.setAttribute('class', 'navbar-collapse collapse'):hide.setAttribute('class', 'navbar-collapse collapse show')
               
                 })
             },

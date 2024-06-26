@@ -26,7 +26,7 @@
                 
                 <ul  class="flex justify-around m-2 navbar-nav mr-auto ">
                 <li class="nav-item ml-3">
-                    <router-link :to="{name:'orders.index'}"><div class="p-1 text-white text-lg">К заявкам</div></router-link>
+                    <router-link v-if="token" :to="{name:'orders.index'}"><div class="p-1 text-white text-lg">К заявкам</div></router-link>
                     </li> 
                 <li class="nav-item ml-3">
                     <router-link v-if="token" :to="{name:'user.personal'}"><div class="p-1 text-white text-lg">Personal </div></router-link>
@@ -34,11 +34,10 @@
                 <li class="nav-item ml-3">
                     <router-link v-if="token" :to="{name:'order.create'}"><div class="p-1 text-white text-lg">Сформировать заявку</div></router-link>
                 </li>
-
-                <li class="nav-item item ml-3">
-                    <a href="#" class="nav-link">
-                        Поиск 
-                    </a></li>
+                <li class="nav-item ml-3">
+                    
+                    <router-link v-if="token" :to="{name:'order.search'}"><div class="p-1 text-white text-lg">Поиск</div></router-link>
+                </li>
                 <li class="nav-item item ml-3">      
                     <a href="#" class="nav-link">
                         Admin 
@@ -98,7 +97,7 @@ import axios from 'axios';
                 .then(res=>{
                     this.userName = res.data.name
                     this.user = res.data  
-                    //console.log(res.data.name);
+                    //console.log(res.data);
                 })
                 .catch(error => console.log(error))
                 .finally(()=>{

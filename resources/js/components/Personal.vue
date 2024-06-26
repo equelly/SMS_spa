@@ -118,7 +118,7 @@ import SetComponent from './Order/SetComponent.vue';
             getMyOrders(){
                 axios.get('/api/personal')
                 .then(res=>{
-                    console.log(res.data.mashine_id);
+                    
                     //получаем объект res.data и перебираем его для доступа к значениям+++++++
                     for (const key in res.data) {
                         if (Object.hasOwnProperty.call(res.data, key)) {

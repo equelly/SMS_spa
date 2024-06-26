@@ -10,14 +10,16 @@
                                 <h4 class="card-title"><strong>ЭКГ№{{ mashine.number }}</strong></h4>
                             </div> <hr>  
                                 <div v-for="order in mashine.orders">
-                                    
-                                    <div class="flex justify-content-between">
-                                    <small class="text-muted">{{order.user.name}} добавил: <time>{{order.carbonCreated}} </time></small>
-                                    <small class="text-muted">{{!order.userExec ? '': `обновлено ${order.userExec.name}: ${order.carbonUpdated}`}}</small>
-                                </div> 
-                                    <p class="card-text">{{order.content}}</p>
-                                      {{ order.category.title }}  
-                                    <a href="#" class="flex justify-content-end"><div class="text-muted"><small>подробнее ></small></div></a><hr>
+                                    {{ }}
+                                    <template v-if="order.category_id == 1 && order.content != ''">
+                                        <div class="flex justify-content-between">
+                                        <small class="text-muted">{{order.user.name}} добавил: <time>{{order.carbonCreated}} </time></small>
+                                        <small class="text-muted">{{!order.userExec ? '': `обновлено ${order.userExec.name}: ${order.carbonUpdated}`}}</small>
+                                    </div> 
+                                        <p class="card-text">{{order.content}}</p>
+                                        {{ order.category.title }}  
+                                        <a href="#" class="flex justify-content-end"><div class="text-muted"><small>подробнее ></small></div></a><hr>
+                                    </template>
                                 </div>
                         </div>
                     </div>
@@ -61,7 +63,7 @@ import CountIndex from './CountIndex.vue';
                axios.get('/api/orders')
                .then(res=>{
                 this.mashines = res.data;
-                //console.log(res.data);
+                console.log(res.data);
                 let hide = document.getElementById('navbarSupportedContent-7');
                 hide.className == 'navbar-collapse collapse show' ? hide.setAttribute('class', 'navbar-collapse collapse'):hide.setAttribute('class', 'navbar-collapse collapse show')
                })

@@ -19,6 +19,7 @@ class IndexController extends BaseController
         
         //нужно передать в коллекцию $mashines дату в формате Carbon
         foreach($mashines as $mashine){
+            
             foreach($mashine->sets as $set){
                 $set->set = $set->name;
             }
@@ -31,8 +32,13 @@ class IndexController extends BaseController
             }
                  
         }
+      
+        return $mashines;//->where('category_id', 1)
+        
+ 
 
-        return $mashines;
+
+        
             
     }
 }

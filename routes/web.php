@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\User\Order\SearchController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -23,7 +24,7 @@ Route::group(['namespace'=>'App\Http\Controllers\User', 'prefix'=>'user', 'middl
         Route::get('/orders/{order}/edit', 'EditController')->name('order.edit');
         Route::patch('/orders/{order}', 'UpdateController')->name('order.update');
         Route::delete('/orders/{order}', 'DestroyController')->name('order.destroy');
-        Route::get('/search', 'SearchController')->name('order.search');
+        
     });
   
 });

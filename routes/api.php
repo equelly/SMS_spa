@@ -5,6 +5,7 @@ use App\Http\Controllers\User\Order\CreateController;
 use App\Http\Controllers\User\Order\DeleteController;
 use App\Http\Controllers\User\Order\IndexController;
 use App\Http\Controllers\User\Order\PersonalController;
+use App\Http\Controllers\User\Order\SearchController;
 use App\Http\Controllers\User\Order\SetController;
 use App\Http\Controllers\User\Order\StoreController;
 use App\Http\Controllers\User\Order\UpdateController;
@@ -39,7 +40,7 @@ Route::group(['middleware'=>'auth:sanctum'], function(){
     Route::post('/store', [StoreController::class, '__invoke']);
     Route::patch('/personal/{order}', [UpdateController::class, '__invoke']);
     Route::delete('/personal/{order}', [DeleteController::class, '__invoke']);
-
+    Route::get('/search', [SearchController::class, '__invoke']);
 
 });
 
