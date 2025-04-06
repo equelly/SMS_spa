@@ -23,11 +23,13 @@ class FilterRequest extends FormRequest
     {
         return [
             //
-            'content'=>'',
-            'created_at'=>'',
-            'mashine_id'=>'',
-            'category_id'=>'',
-            'user_id_req'=>'',
+            'category' => 'nullable | array' ,
+            'mashine' => 'nullable | array',
+            'user' =>'nullable | array',
+            'dates'=>'nullable | array',
+            'dates.from'=>'nullable | date_format:d.m.Y',
+            'dates.to'=>'nullable | date_format:d.m.Y',
+            'content'=>'nullable'
            
         ];
     }

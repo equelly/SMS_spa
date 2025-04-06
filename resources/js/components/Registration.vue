@@ -34,7 +34,7 @@
             <input v-model="password_confirmation" type="password" placeholder="подтвердите пароль" class="form-control m-2" required>
                 <label for="password">Пароль</label>
         </div>
-        <input disabled @click.prevent="register" type="submit" value="зарегистрироваться" class="btn btn-primary">
+        <input  @click.prevent="register" type="submit" value="зарегистрироваться" class="btn btn-primary">
         <div id="error" style="color: crimson;font-size: 1.1rem;"></div>
         </div>
     </div>
@@ -60,26 +60,34 @@ import axios from 'axios';
         },
         methods:{
             register(){
-                axios.get('/sanctum/csrf-cookie').then(response => {
+                axios.get('/sanctum/csrf-cookie')
+                .then(response => {
                     axios.post('/register', {
                         name:this.name, 
                         email:this.email, 
                         role:this.selectedUserCategories, 
                         password:this.password, 
                         password_confirmation:this.password_confirmation })
-                        
-                        .then(document.getElementById('error').innerHTML = this.name+'.Регистрация завершена. Выполняется переход в приложение')
                         .then(res=>{
+                           // console.log(res);
+                            if(res){
                         localStorage.setItem ('x_xsrf_token', res.config.headers['X-XSRF-TOKEN']);
-                        setTimeout(this.$router.push({name:'user.personal'}), 1000) 
+                        document.getElementById('error').innerHTML = this.name+ ' .Регистрация завершена. Выполняется переход в приложение'
+                        setTimeout(this.$router.push({name:'orders.personal'}), 5000) 
+                        }
                         })
                         .catch(err=>{
+                            console.log(err);
+                            
+                            
                         let message =  err.response.data.message;
                         let errBox = document.getElementById('error');
                         errBox.innerHTML = message;
                     })
                 })
+                
             }
+            
         }
 
     }

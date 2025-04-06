@@ -4,7 +4,7 @@
 
         <div class="card shadow p-3 m-3 bg-white rounded" style="width: 40rem">
         <div class="flex justify-content-between">
-            <p class="card-text"><small class="text-muted">{{$order->cteated_at}}</small></p>
+            <p class="card-text"><small class="text-muted">{{$order->created_at}}</small></p>
            
             @if(auth()->user() && (auth()->user()->id == $order->user_id_req))
 

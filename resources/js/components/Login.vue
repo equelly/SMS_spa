@@ -8,12 +8,12 @@
             </div>
         <div class="md-form">
             <i class="fas fa-envelope prefix text-light active"></i>
-                <input v-model="email" type="email" placeholder="email" class="form-control m-2">
+                <input v-model="email" type="email" placeholder="email" class="form-control m-2" id="email" autocomplete="on">
             <label for="email" class="active">Ваш email</label>
         </div>
         <div class="md-form">
             <i class="fas fa-lock prefix text-light active"></i>
-                <input v-model="password" type="password" placeholder="password" class="form-control m-2">
+                <input v-model="password" type="password" placeholder="password" class="form-control m-2" id="password">
                 <label for="password">Пароль</label>
         </div>
         
@@ -44,7 +44,7 @@ import axios from 'axios';
                         
                         localStorage.setItem ('x_xsrf_token', res.config.headers['X-XSRF-TOKEN']);
                         
-                        this.$router.push({name:'user.personal'})
+                        this.$router.push({name:'orders.personal'})
                         
                     })
                     //.then(this.$router.push({name:'get.index'}))

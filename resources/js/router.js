@@ -5,9 +5,18 @@ const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
 
     routes: [
+        // {
+        //     path: "/",
+        //     name: "home", // or any name you want
+        //     component: ()=>import('./components/Order/Index.vue'), //You need to crate and import this component
+        // },
         {
         path: '/api/orders', component: ()=>import('./components/Order/Index.vue'),
         name:'orders.index'
+        },
+        {
+        path: '/api/order', component: ()=>import('./components/Order/Show.vue'),
+        name:'order.show'
         },
         {
         path: '/user/login', component: ()=>import('./components/Login.vue'),
@@ -18,8 +27,8 @@ const router = createRouter({
         name:'user.registration'
         },
         {
-        path: '/api/personal', component: ()=>import('./components/Personal.vue'),
-        name:'user.personal'
+        path: '/api/orders/personal', component: ()=>import('./components/Order/Personal.vue'),
+        name:'orders.personal'
         },
         {
         path: '/api/create', component: ()=>import('./components/Order/Create.vue'),

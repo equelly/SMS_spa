@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Trait\Filterable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,16 +11,29 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
+    use Filterable;
     use HasFactory;
 
     //для удаления с возможностью восстановления применяем SoftDeletes в модели и при создании миграции
     //восстнавливается методом <Model>::withTrached()->find(<id>)->restore();
     use SoftDeletes;
 
+    
     //модель при создании связана с таблицей 'orders' установим защиту дополнительно в модели
     protected $table = 'orders';
     //снимем защиту для возможности записи атрубутов модели в БД
     protected $guarded = []; // ... или false
+//++++++++++++++++++++++++filter  
+    // //создадим метод filterBy с локальной областью действия (нужно добавить префикс scope-)
+    // public function scopeFilterBy($query, $filters)
+    // {
+    //     $namespace = 'App\Utilities\PostFilters';
+    //     $filter = new FilterBuilder($query, $filters, $namespace);
+
+    //     return $filter->apply();
+    // }
+
+//+++++++++++++++++++++++++++++
     //объект класса Order связан с объектом Category через поле (свойство)'category_id' табл. 'orders' (класса Order) и поле ('id') табл.'categories'
     public function category(){
         return $this->belongsTo(Category::class, 'category_id', 'id');

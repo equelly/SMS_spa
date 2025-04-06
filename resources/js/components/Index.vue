@@ -11,7 +11,7 @@
                 <ul class="navbar-nav ms-auto pr-2">
                     <li class="flex">
                         <a  class="pl-2" v-if="token" @click.prevent = "logout" href="#"> Выход из аккаунта </a>
-                        <div class="pl-2">{{ userName }}</div>
+                        <div class="pl-2" v-if="token">{{ userName }}</div>
                     </li> 
                     <li>
                         <router-link v-if="!token" :to="{name:'user.login'}" class="mr-3"> Login </router-link>   
@@ -25,23 +25,23 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent-7">
                 
                 <ul  class="flex justify-around m-2 navbar-nav mr-auto ">
-                <li class="nav-item ml-3">
-                    <router-link v-if="token" :to="{name:'orders.index'}"><div class="p-1 text-white text-lg">К заявкам</div></router-link>
+                    <li class="nav-item ml-3">
+                        <router-link v-if="token" :to="{name:'orders.index'}"><div class="p-1 text-white text-lg">К заявкам</div></router-link>
                     </li> 
-                <li class="nav-item ml-3">
-                    <router-link v-if="token" :to="{name:'user.personal'}"><div class="p-1 text-white text-lg">Personal </div></router-link>
-                </li>
-                <li class="nav-item ml-3">
-                    <router-link v-if="token" :to="{name:'order.create'}"><div class="p-1 text-white text-lg">Сформировать заявку</div></router-link>
-                </li>
-                <li class="nav-item ml-3">
-                    
-                    <router-link v-if="token" :to="{name:'order.search'}"><div class="p-1 text-white text-lg">Поиск</div></router-link>
-                </li>
-                <li class="nav-item item ml-3">      
-                    <a href="#" class="nav-link">
-                        Admin 
-                    </a></li>                
+                    <li class="nav-item ml-3">
+                        <router-link v-if="token" :to="{name:'orders.personal'}"><div class="p-1 text-white text-lg">Personal </div></router-link>
+                    </li>
+                    <li class="nav-item ml-3">
+                        <router-link v-if="token" :to="{name:'order.create'}"><div class="p-1 text-white text-lg">Сформировать заявку</div></router-link>
+                    </li>
+                    <li class="nav-item ml-3">    
+                        <router-link v-if="token" :to="{name:'order.search'}"><div class="p-1 text-white text-lg">Поиск</div></router-link>
+                    </li>
+                    <li class="nav-item item ml-3">      
+                        <a href="#" class="nav-link">
+                            Admin 
+                        </a>
+                    </li>                
                 </ul>
               </div>
             </div>
@@ -72,7 +72,8 @@ import axios from 'axios';
 
         mounted(){
             this.getToken(),
-            this.getUserName()
+            this.getUserName(),
+            this.rollMenu()
 
         },
 
@@ -81,6 +82,12 @@ import axios from 'axios';
         },
 
         methods:{
+            rollMenu(){
+                let hide = document.getElementById('navbarSupportedContent-7');
+                hide.className == 'navbar-collapse collapse show' ? hide.setAttribute('class', 'navbar-collapse collapse'):hide.setAttribute('class', 'navbar-collapse collapse show')
+              
+
+            },
             getToken(){
                 this.token = localStorage.getItem('x_xsrf_token')
             },
@@ -99,10 +106,7 @@ import axios from 'axios';
                     this.user = res.data  
                     //console.log(res.data);
                 })
-                .catch(error => console.log(error))
-                .finally(()=>{
-                  
-                });
+                
             }
         },
         components:{

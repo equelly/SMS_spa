@@ -1,5 +1,5 @@
 <template>
-    <div class="container mt-1">
+    <div class="container mt-5">
         <div class="mt-1 p-2 bg-gray-200 "  style="border-bottom: 2px solid #14B8A6; font-size: 1.2rem">
             <div class="flex justify-content-between">
                 <div  class="pl-3 ">мои заявки</div>
@@ -7,20 +7,22 @@
             </div>
         </div>
         <template v-for="order in myorders">
+            
             <div class="flex justify-content-center mt-3">
                 <div class="card w-100 shadow p-2 bg-white rounded">
                     <div class="row g-0">
-                        <div class="col-md-8">
+                        
                             <div class="card-body">
-                                <div class="flex justify-content-between">    
+                                <div class="d-flex justify-content-between">    
                                     <h4 class="card-title flex"><span class="p-2">ЭКГ№</span>
                                         <div :class="isEdit(order.id) ? 'd-none': 'card-title flex p-2'">{{  order.mashine['number']  }}</div>
-                                        <select  v-focus  v-model="mashine_id"  class = "form-control w-100" required :class="isEdit(order.id) ? 'form-control w-25': 'd-none'">
+                                        <select :id="order.id+'mashine'" v-model="mashine_id"  class = "form-control w-100" required :class="isEdit(order.id) ? 'form-control w-25': 'd-none'">
                                  
                                             <option v-for="mashine in mashines" 
                                             v-bind:value = "mashine.id"
+                                            :key="mashine.id"
                                             :selected="order.mashine['id'] == mashine.id ? true : false" 
-                                                    >          
+                                            :id="order.id + mashine.id"        >          
                                                     {{ mashine.number }}</option>
                                         
                                         </select>
@@ -28,17 +30,18 @@
                                     </h4>
                                     <div class="form-group ml-4"> 
                                         <div :class="isEdit(order.id) ? 'd-none': 'card-title flex p-2'">{{  order.category['title']  }}</div>
-                                        <select  v-focus  v-model="selectedCategoryId"  class = "form-control w-100" required :class="isEdit(order.id) ? 'form-control w-25': 'd-none'">
+                                        <select :id="order.id+'category'" v-model="selectedCategoryId"  class = "form-control w-100" required :class="isEdit(order.id) ? 'form-control w-25': 'd-none'">
                                  
                                             <option v-for="category in categories" 
                                             v-bind:value = "category.id"
+                                            :key="category.id"
                                             :selected="order.category['id'] == category.id ? true : false" 
                                                     >          
                                                     {{ category.title }}</option>
                                         
                                         </select>
                                     </div>
-                                    <br>
+                                    
                                     
                                 </div> <hr>  
                                 <div class="flex justify-content-between">
@@ -46,7 +49,7 @@
                                     <small class="text-muted">{{!order.userExec ? '': `обновлено ${order.userExec.name}: ${order.carbonUpdated}`}}</small>
                                 </div>
                                         <p :class="isEdit(order.id) ? 'd-none': 'card-text'">{{order.content}}</p>
-                                        <textarea :class="isEdit(order.id) ? 'form-control': 'd-none'" v-model="content"></textarea>
+                                        <textarea :id="order.id+'content'" :class="isEdit(order.id) ? 'form-control': 'd-none'" v-model="content"></textarea>
 
                                         <a href="#" class="flex justify-content-end"><div class="text-muted"><small>подробнее ></small></div></a><hr>
                                 <div class="flex justify-content-between"> 
@@ -64,14 +67,11 @@
                                     </div>
                                 </div>  
                             </div>
-                        </div>
-
+                        
+                        <!-- вывод чекбокса комплектации
                         <div class="col-md-4 complect bg-gray-200">
-                            <set-component  
-                           
-                            
-                            />
-                        </div>
+                            <set-component :mashines="mashines"/>
+                        </div> -->
 
                     </div>
                 </div>
@@ -82,7 +82,7 @@
 
 <script>
 import axios from 'axios';
-import SetComponent from './Order/SetComponent.vue';
+import SetComponent from './SetComponent.vue';
 
     export default {
         name: "Personal",
@@ -103,7 +103,8 @@ import SetComponent from './Order/SetComponent.vue';
                     {id: 2, title:'выполнено'},
                     {id: 3, title:'отклонено'},
                 ],
-                deleteMessage: null
+                deleteMessage: null,
+
             } 
         },
 
@@ -116,29 +117,15 @@ import SetComponent from './Order/SetComponent.vue';
       
         methods: {
             getMyOrders(){
-                axios.get('/api/personal')
+                axios.get('/api/orders/personal')
                 .then(res=>{
-                    
-                    //получаем объект res.data и перебираем его для доступа к значениям+++++++
-                    for (const key in res.data) {
-                        if (Object.hasOwnProperty.call(res.data, key)) {
-                            const element = res.data[key];
-
-                            if (!element.user.name) {
-                                console.log('yes!!!');
-                                //this.user_exec = element.userExec.name
-                            }
-                            
-                            
-                        }
-                    }
-                    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                  
                     let hide = document.getElementById('navbarSupportedContent-7');
                     hide.className == 'navbar-collapse collapse show' ? hide.setAttribute('class', 'navbar-collapse collapse'):hide.setAttribute('class', 'navbar-collapse collapse show')
 
                     this.myorders = res.data;
                     this.category = res.data.category
-                    //console.log(this.myorders[15].category.title);
+                    
                     this.val =  Object.keys(this.myorders).length;
                     
                 })
@@ -187,6 +174,10 @@ import SetComponent from './Order/SetComponent.vue';
             //который скроет поля ввода при нажатии "обновить"
             updateOrder(id){
                 this.editOrderId = null
+                //скрываем меню навигации
+                let hide = document.getElementById('navbarSupportedContent-7');
+                hide.className == 'navbar-collapse collapse show' ? hide.setAttribute('class', 'navbar-collapse collapse'):hide.setAttribute('class', 'navbar-collapse collapse show')
+
                 axios.patch(`/api/personal/${id}`, {mashine_id: this.mashine_id, content: this.content, category_id: this.selectedCategoryId, user_exec: this.user_exec})
                     .then(res=>{
                         //после добавления обновим список заявок с обновленными данными с помощью функции getMyOrders()

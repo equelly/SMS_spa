@@ -40,7 +40,7 @@
                   <button :disabled="!isDisabled" @click.prevent="addOrder" style="background-color: rgb(59 130 246 / 0.7);" id = "button_id" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-teal-400 bg-teal-500 hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 callout mb-1 w-90">отправить</button>
                 </div>
             </div>
-            <div class="text-red-400 flex justify-content-center">{{ succMessage }}</div>
+            <div class="text-red-400 flex justify-content-center"></div>
           </div>
           
             
@@ -104,7 +104,7 @@ import router from '../../router';
                         
                         this.userId = res.data.id     
                          })
-                    .catch(error => console.log(error))
+                    .catch(error => console.log('there is mistake'))
                     .finally(()=>{
                                 
                     });
@@ -126,18 +126,16 @@ import router from '../../router';
                                           user_id_req: this.userId,
                                           sets: this.selectSets})
                 .then(res => {
-                    console.log(res);
+                    //console.log(res);
                     
                     
                     router.push({name:'orders.index'})
                 })
-                .catch(error => console.log(error))
+                .catch(error => console.log('there is mistake'))
                 
                 
             }, 
-            receiveEmit() {
-                alert('Hello World!');
-            }
+          
 
           
         },

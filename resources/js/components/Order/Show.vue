@@ -1,5 +1,5 @@
 <template>
- 
+ 44444444
 </template>
 
 <script>
@@ -14,6 +14,7 @@ import axios from 'axios';
             } 
         },
         mounted(){
+            this.showOrder()
                     
         },
         props:[
@@ -21,6 +22,13 @@ import axios from 'axios';
         ],
       
         methods: {
+            showOrder(){
+            axios.get('/api/order')
+               .then(res=>console.log(res))
+                
+            
+            }
+            
             
         }
 
